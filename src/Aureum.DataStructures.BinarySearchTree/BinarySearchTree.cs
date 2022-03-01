@@ -12,10 +12,16 @@ namespace Aureum.DataStructures.BinarySearchTree
         private Node<TKey, TValue> root;
 
         private int count;
+        private int depth;
+
+        public int Count => count;
+
+        public int Depth => depth;
 
         public BinarySearchTree()
         {
             count = 0;
+            depth = 0;
         }
 
         public void Insert(TKey key, TValue value)
@@ -49,14 +55,18 @@ namespace Aureum.DataStructures.BinarySearchTree
             throw new NotImplementedException();
         }
 
-        public TValue GetValue(TKey key)
-        {
-            throw new NotImplementedException();
-        }
-
         public TValue Find(TKey key)
         {
-            throw new NotImplementedException();
+            var cur = root;
+            while (cur != null)
+            {
+                if (cur.Key.CompareTo(key) == 0)
+                    return cur.Value;
+
+                cur = key.CompareTo(cur.Key) < 0 ? cur.Left : cur.Right;
+            }
+
+            return default;
         }
 
         public Entry<TKey, TValue> Minimum()
